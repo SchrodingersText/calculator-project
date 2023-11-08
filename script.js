@@ -42,3 +42,12 @@ const operate = function (firstOperand, operator, secondOperand) {
 };
 
 const digitButtons = document.querySelectorAll("button.digits");
+
+digitButtons.forEach(button => button.addEventListener("click", () => {
+    displayClickedValue(button.innerHTML)
+}))
+
+const displayClickedValue = function (value) {
+    let displayedText = document.querySelector("p.display-text")
+    displayedText.innerText += value;
+};
