@@ -40,3 +40,5 @@ const operate = function (firstOperand, operator, secondOperand) {
         break;
    }
 };
+
+const digitButtons = document.querySelectorAll("button.digits");
