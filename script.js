@@ -49,5 +49,11 @@ displayableButtons.forEach(button => button.addEventListener("click", () => {
 
 const displayClickedValue = function (value) {
     let displayText = document.querySelector("p.display-text");
-    displayText.innerText += value;
+    let lastTextCharacter = displayText.innerText.slice(-1); 
+    
+    if (["+", "-", "x", "&divide;", "="].includes(value)) {
+        displayText.innerText += ` ${value} `;
+    } else if (["+", "-", "x", "&divide;", "="].includes(lastTextCharacter)) {
+        displayText.innerText += ` ${value}`;
+    } else displayText.innerText += value;
 };
