@@ -1,42 +1,40 @@
-const add = function (num1, num2) {
-    return num1 + num2;
+const displayText = document.querySelector("p.display-text");
+const resultText = document.querySelector("p.result-text");
+
+const add = function (num1, num2) {;
+    return +(num1) + +(num2);
 };
 
 const subtract = function (num1, num2) {
-    return num1 - num2;
+    return +(num1) - +(num2);
 };
 
 const multiply = function (num1, num2) {
-    return num1 * num2;
+    return +(num1) * +(num2);
 };
 
 const divide = function (num1, num2) {
-    if (num1 === 0 && num2 === 0) return "Error";
-    return num1 / num2;
+    if (num1 > 0 && num2 > 0) {
+        return +(num1) / +(num2);
+    } else return "lmao";
 };
-
-let firstOperand;   // use an event listener to assign a user-entered value (clicked buttons) to these variables?
-
-let operator;
-
-let secondOperand;
 
 const operate = function (firstOperand, operator, secondOperand) {
    switch (operator) {
     case "+":
-        return add(firstOperand, secondOperand);
+        resultText.innerText += add(firstOperand, secondOperand);
         break;
 
     case "-":
-        return subtract(firstOperand, secondOperand);
+        resultText.innerText += subtract(firstOperand, secondOperand);
         break;
 
-    case "*":
-        return multiply(firstOperand, secondOperand);
+    case "x":
+        resultText.innerText += multiply(firstOperand, secondOperand);
         break;
     
-    case "/":
-        return divide(firstOperand, secondOperand);
+    case "÷":
+        resultText.innerText += divide(firstOperand, secondOperand);
         break;
    }
 };
@@ -48,12 +46,16 @@ displayableButtons.forEach(button => button.addEventListener("click", () => {
 }));
 
 const displayClickedValue = function (value) {
-    let displayText = document.querySelector("p.display-text");
     let lastTextCharacter = displayText.innerText.slice(-1); 
-    
-    if (["+", "-", "x", "&divide;", "="].includes(value)) {
+    if (["+", "-", "x", "÷"].includes(value)) {
         displayText.innerText += ` ${value} `;
-    } else if (["+", "-", "x", "&divide;", "="].includes(lastTextCharacter)) {
+    } else if (["+", "-", "x", "÷"].includes(lastTextCharacter)) {
         displayText.innerText += ` ${value}`;
     } else displayText.innerText += value;
 };
+
+const equalsButton = document.querySelector("button.equals");
+equalsButton.addEventListener("click", () => {
+    let operationArray = displayText.innerText.split(" ");
+    operate(operationArray[0], operationArray[1], operationArray[2])
+})

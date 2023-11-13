@@ -7,10 +7,22 @@ html {
 }
 
 div.display {
-    min-height: 3vh;
+    min-height: 5vh;
     margin: 1vh 0;
+    border: 2px solid black;
+    max-width: 30vw;
 }
 
-p.display {
+p.display-text {
     margin: 0;
+    min-height: 2vh;
+}
+
+p.result-text  {
+    margin: 0;
+    padding-right: 1rem;
+    background-color: coral;
+    min-height: 3vh;
+    text-align:end;
+    font-size: 1.5rem;
 }
