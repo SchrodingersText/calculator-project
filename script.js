@@ -22,19 +22,19 @@ const divide = function (num1, num2) {
 const operate = function (firstOperand, operator, secondOperand) {
    switch (operator) {
     case "+":
-        resultText.innerText += add(firstOperand, secondOperand);
+        resultText.innerText = add(firstOperand, secondOperand);
         break;
 
     case "-":
-        resultText.innerText += subtract(firstOperand, secondOperand);
+        resultText.innerText = subtract(firstOperand, secondOperand);
         break;
 
     case "x":
-        resultText.innerText += multiply(firstOperand, secondOperand);
+        resultText.innerText = multiply(firstOperand, secondOperand);
         break;
     
     case "÷":
-        resultText.innerText += divide(firstOperand, secondOperand);
+        resultText.innerText = divide(firstOperand, secondOperand);
         break;
    }
 };
@@ -54,19 +54,15 @@ const displayClickedValue = function (value) {
     } else displayText.innerText += value;
 };
 
-// const equalsButton = document.querySelector("button.equals");
-// equalsButton.addEventListener("click", () => {
-//     let operationArray = displayText.innerText.split(" ");
-//     operate(operationArray[0], operationArray[1], operationArray[2])
-// });
-
 const operatorButtons = document.querySelectorAll("button.operators");
-
 operatorButtons.forEach(button => button.addEventListener("click", () => {
     let arrFromDisplay = displayText.innerText.split(" ");
-    console.log(arrFromDisplay[2])
+    let operationResult = resultText.innerText;
     if (arrFromDisplay[2] === undefined) {
         return;
+    } else if (arrFromDisplay.length > 4) {
+        operate(operationResult, arrFromDisplay[arrFromDisplay.length - 3], arrFromDisplay[arrFromDisplay.length - 2]);
+        console.log(operationResult)
     } else {
         operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
     }
