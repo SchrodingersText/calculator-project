@@ -1,6 +1,8 @@
 const displayText = document.querySelector("p.display-text");
 const resultText = document.querySelector("p.result-text");
 
+let equalsToggle = true;
+
 const add = function (num1, num2) {;
     return +(num1) + +(num2);
 };
@@ -36,6 +38,10 @@ const operate = function (firstOperand, operator, secondOperand) {
     case "÷":
         resultText.innerText = divide(firstOperand, secondOperand);
         break;
+
+    case "=":
+        resultText.innerText = firstOperand;
+        break;
    }
 };
 
@@ -54,6 +60,21 @@ const displayClickedValue = function (value) {
     } else displayText.innerText += value;
 };
 
+const equalsButton = document.querySelector("button.equals");
+equalsButton.addEventListener("click", () => {
+    let arrFromDisplay = displayText.innerText.split(" ");
+    if (equalsToggle) {
+        if (arrFromDisplay.length < 4) {
+            operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
+        } else {
+        operate(resultText.innerText, 
+                arrFromDisplay[arrFromDisplay.length - 2], 
+                arrFromDisplay[arrFromDisplay.length - 1]);
+        equalsToggle = false;
+        }
+    }
+});
+
 const operatorButtons = document.querySelectorAll("button.operators");
 operatorButtons.forEach(button => button.addEventListener("click", () => {
     let arrFromDisplay = displayText.innerText.split(" ");
@@ -62,7 +83,6 @@ operatorButtons.forEach(button => button.addEventListener("click", () => {
         return;
     } else if (arrFromDisplay.length > 4) {
         operate(operationResult, arrFromDisplay[arrFromDisplay.length - 3], arrFromDisplay[arrFromDisplay.length - 2]);
-        console.log(operationResult)
     } else {
         operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
     }
