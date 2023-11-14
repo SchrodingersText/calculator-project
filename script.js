@@ -86,4 +86,11 @@ operatorButtons.forEach(button => button.addEventListener("click", () => {
     } else {
         operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
     }
-}))
+}));
+
+const clearAllButton = document.querySelector("button.clear");
+clearAllButton.addEventListener("click", () => {
+    displayText.innerText = "";
+    resultText.innerText = "";
+    equalsToggle = true;
+});
