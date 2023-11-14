@@ -54,8 +54,20 @@ const displayClickedValue = function (value) {
     } else displayText.innerText += value;
 };
 
-const equalsButton = document.querySelector("button.equals");
-equalsButton.addEventListener("click", () => {
-    let operationArray = displayText.innerText.split(" ");
-    operate(operationArray[0], operationArray[1], operationArray[2])
-})
+// const equalsButton = document.querySelector("button.equals");
+// equalsButton.addEventListener("click", () => {
+//     let operationArray = displayText.innerText.split(" ");
+//     operate(operationArray[0], operationArray[1], operationArray[2])
+// });
+
+const operatorButtons = document.querySelectorAll("button.operators");
+
+operatorButtons.forEach(button => button.addEventListener("click", () => {
+    let arrFromDisplay = displayText.innerText.split(" ");
+    console.log(arrFromDisplay[2])
+    if (arrFromDisplay[2] === undefined) {
+        return;
+    } else {
+        operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
+    }
+}))
