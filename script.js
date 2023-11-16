@@ -2,6 +2,7 @@ const displayText = document.querySelector("p.display-text");
 const resultText = document.querySelector("p.result-text");
 
 let equalsToggle = true;
+let decimalToggle = true;
 
 const add = function (num1, num2) {;
     return +(num1) + +(num2);

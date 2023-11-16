@@ -1,28 +1,142 @@
 html {
     box-sizing: border-box;
+    background-color: #b4ccee;
+    background-image: url("./images/option4.jpg");
+    background-repeat: no-repeat;
+    background-size: 100vw 100vh;
+
 }
 
 *, *::before, *::after {
     box-sizing: inherit;
 }
 
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin: 8vh 0 0 0;
+}
+
+div.calc-container {
+    background-color: #ED9A31;
+    background-image: url("./images/minimalist-monochromatic-blue-texture.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10%;
+    width: 25rem;
+    height: 32rem;
+    padding: 2rem;
+}
+
 div.display {
-    min-height: 5vh;
-    margin: 1vh 0;
-    border: 2px solid black;
-    max-width: 30vw;
-}
-
-p.display-text {
-    margin: 0;
-    min-height: 2vh;
-}
-
-p.result-text  {
-    margin: 0;
-    padding-right: 1rem;
-    background-color: coral;
-    min-height: 3vh;
-    text-align:end;
+    display: flex;
+    flex-direction: column;
+    background-color: #faebd7;
+    border-radius: 10px;
+    height: 6.25rem;
+    margin: 0 0 1rem;
+    padding: 1rem;
+    font-family: 'Source Code Pro', monospace;
     font-size: 1.5rem;
 }
+
+div.display p {
+    width: 100%;
+    margin: 0;
+}
+
+div.display .display-text {
+    word-break: break-all;
+    min-height: 3rem;
+    line-height: 1.1rem;
+}
+
+div.display .result-text {
+    text-align: end;
+}
+
+button {
+    /* background-image: linear-gradient(to top,#ffd49c, #ec8c4c); */
+    height: 3.8rem;
+    width: 4.8rem;
+    background-color: #faebd7; /* #ffd49c */
+    border-radius: 20%;
+    border: none;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 2rem;
+    font-weight: 400;
+    color: #2e1b02;
+}
+
+div.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:start;
+    gap: .5rem;
+    height: 21rem; 
+    /*  removing this doesn't seem to change anything Q: what's holding button layout in place?*/
+}
+
+button.clear, button.equals {
+    background-image: url("images/buttonbg.jpg");
+    /* background-image: linear-gradient(to top,#ffd49c, #ec8c4c); */
+    width: 10.1rem;
+    border-radius: 10px;   
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* div.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    height: 21rem;
+    width: 22rem;
+    gap: 1rem;
+}
+
+div.buttons div.sectioned-buttons {
+    display: flex;
+    border: 3px solid pink;
+    height: 21rem;
+    width: 15rem;
+}
+
+div.buttons button {
+    height: 3rem;
+    width: 3rem;
+    background-color: #ffd49c;
+    border-radius: 20%;
+    border: none;
+}
+
+div.buttons button.clear {
+    width: 6rem;
+    border-radius: 10px;
+}
+
+div.buttons button.equals {
+    width: 6rem;
+    border-radius: 10px;
+} */

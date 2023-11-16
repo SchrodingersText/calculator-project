@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./style.css" rel="stylesheet">
-    <title>The Calculator</title>
+    <title>Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,300;1,400&display=swap" rel="stylesheet"> 
 </head>
 <body>
+    <main class="main">
     <div class="calc-container">
         <div class="display">
             <p class="display display-text"></p>
@@ -17,27 +21,34 @@
 
                 <button class="decimal displayable">.</button>
 
+                <button class="operators displayable">&divide;</button>
+
                 <button class="digits displayable">9</button>
                 <button class="digits displayable">8</button>
                 <button class="digits displayable">7</button>
+
+                <button class="operators displayable">x</button>
+
                 <button class="digits displayable">6</button>
                 <button class="digits displayable">5</button>
                 <button class="digits displayable">4</button>
+
+                <button class="operators displayable">-</button>
+
                 <button class="digits displayable">3</button>
                 <button class="digits displayable">2</button>
                 <button class="digits displayable">1</button>
+
+                <button class="operators displayable">+</button>
+
                 <button class="digits displayable">0</button>
 
+                <button class="pos-neg displayable">+/-</button>
+
                 <button class="equals">=</button>
-            <div class="operator-buttons">
-                <button class="operators displayable">&divide;</button>
-                <button class="operators displayable">x</button>
-                <button class="operators displayable">-</button>
-                <button class="operators displayable">+</button>
-            </div>
-            
         </div>
     </div>
+    </main>
 <script src="./script.js"></script>
 </body>
 </html>
