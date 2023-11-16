@@ -58,7 +58,7 @@ const displayClickedValue = function (value) {
         displayText.innerText += ` ${value} `;
     } else if (["+", "-", "x", "÷"].includes(lastTextCharacter)) {
         displayText.innerText += ` ${value}`;
-    } else if (value === "." && decimalToggle === false) {
+    } else if (value === "." && !decimalToggle) {
         return;
     } else displayText.innerText += value;
 };
@@ -82,6 +82,7 @@ const operatorButtons = document.querySelectorAll("button.operators");
 operatorButtons.forEach(button => button.addEventListener("click", () => {
     let arrFromDisplay = displayText.innerText.split(" ");
     let operationResult = resultText.innerText;
+    decimalToggle = true;
     if (arrFromDisplay[2] === undefined) {
         return;
     } else if (arrFromDisplay.length > 4) {
@@ -89,7 +90,6 @@ operatorButtons.forEach(button => button.addEventListener("click", () => {
     } else {
         operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
     }
-    decimalToggle = true;
 }));
 
 const clearAllButton = document.querySelector("button.clear");
