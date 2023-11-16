@@ -58,6 +58,8 @@ const displayClickedValue = function (value) {
         displayText.innerText += ` ${value} `;
     } else if (["+", "-", "x", "÷"].includes(lastTextCharacter)) {
         displayText.innerText += ` ${value}`;
+    } else if (value === "." && decimalToggle === false) {
+        return;
     } else displayText.innerText += value;
 };
 
@@ -87,6 +89,7 @@ operatorButtons.forEach(button => button.addEventListener("click", () => {
     } else {
         operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
     }
+    decimalToggle = true;
 }));
 
 const clearAllButton = document.querySelector("button.clear");
@@ -94,4 +97,8 @@ clearAllButton.addEventListener("click", () => {
     displayText.innerText = "";
     resultText.innerText = "";
     equalsToggle = true;
+    decimalToggle = true;
 });
+
+const decimalButton = document.querySelector("button.decimal");
+decimalButton.addEventListener("click", () => decimalToggle = false);

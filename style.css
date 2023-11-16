@@ -58,7 +58,6 @@ div.display .result-text {
 }
 
 button {
-    /* background-image: linear-gradient(to top,#ffd49c, #ec8c4c); */
     height: 3.8rem;
     width: 4.8rem;
     background-color: #faebd7; /* #ffd49c */
@@ -76,12 +75,11 @@ div.buttons {
     justify-content:start;
     gap: .5rem;
     height: 21rem; 
-    /*  removing this doesn't seem to change anything Q: what's holding button layout in place?*/
+    /*  removing ^ this doesn't seem to change anything Q: what's holding button layout in place?*/
 }
 
 button.clear, button.equals {
     background-image: url("images/buttonbg.jpg");
-    /* background-image: linear-gradient(to top,#ffd49c, #ec8c4c); */
     width: 10.1rem;
     border-radius: 10px;   
     background-size: cover;
