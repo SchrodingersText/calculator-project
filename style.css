@@ -4,11 +4,15 @@ html {
     background-image: url("./images/option4.jpg");
     background-repeat: no-repeat;
     background-size: 100vw 100vh;
-
 }
 
 *, *::before, *::after {
     box-sizing: inherit;
+}
+
+body {
+    font-family: 'Source Code Pro', monospace;
+    margin: 0;
 }
 
 .main {
@@ -17,6 +21,7 @@ html {
     align-items: center;
     height: 80vh;
     margin: 8vh 0 0 0;
+    padding: 0;
 }
 
 div.calc-container {
@@ -38,7 +43,6 @@ div.display {
     height: 6.25rem;
     margin: 0 0 1rem;
     padding: 1rem;
-    font-family: 'Source Code Pro', monospace;
     font-size: 1.5rem;
 }
 
@@ -72,7 +76,7 @@ button {
 div.buttons {
     display: flex;
     flex-wrap: wrap;
-    justify-content:start;
+    justify-content: start;
     gap: .5rem;
     height: 21rem; 
     /*  removing ^ this doesn't seem to change anything Q: what's holding button layout in place?*/
@@ -86,6 +90,10 @@ button.clear, button.equals {
     background-repeat: no-repeat;
 }
 
+.footer {
+    background-color: #ff7f5046;
+    padding: 0 0 0 1rem;
+}
 
 
 
