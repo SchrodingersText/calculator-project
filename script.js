@@ -36,7 +36,7 @@ const operate = function (firstOperand, operator, secondOperand) {
         resultText.innerText = multiply(firstOperand, secondOperand);
         break;
     
-    case "÷":
+    case "/":
         resultText.innerText = divide(firstOperand, secondOperand);
         break;
 
@@ -54,9 +54,9 @@ displayableButtons.forEach(button => button.addEventListener("click", () => {
 
 const displayClickedValue = function (value) {
     let lastTextCharacter = displayText.innerText.slice(-1); 
-    if (["+", "-", "x", "÷"].includes(value)) {
+    if (["+", "-", "x", "/"].includes(value)) {
         displayText.innerText += ` ${value} `;
-    } else if (["+", "-", "x", "÷"].includes(lastTextCharacter)) {
+    } else if (["+", "-", "x", "/"].includes(lastTextCharacter)) {
         displayText.innerText += ` ${value}`;
     } else if (value === "." && !decimalToggle) {
         return;
@@ -64,19 +64,6 @@ const displayClickedValue = function (value) {
 };
 
 const equalsButton = document.querySelector("button.equals");
-// equalsButton.addEventListener("click", () => {
-//     let arrFromDisplay = displayText.innerText.split(" ");
-//     if (equalsToggle) {
-//         if (arrFromDisplay.length < 4) {
-//             operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
-//         } else {
-//         operate(resultText.innerText, 
-//                 arrFromDisplay[arrFromDisplay.length - 2], 
-//                 arrFromDisplay[arrFromDisplay.length - 1]);
-//         equalsToggle = false;
-//         }
-//     }
-// });
 
 const clickEqualsButton = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
@@ -95,18 +82,24 @@ const clickEqualsButton = function () {
 equalsButton.addEventListener("click", clickEqualsButton);
 
 const operatorButtons = document.querySelectorAll("button.operators");
-operatorButtons.forEach(button => button.addEventListener("click", () => {
+
+const clickOperatorButton = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
     let operationResult = resultText.innerText;
     decimalToggle = true;
+    
     if (arrFromDisplay[2] === undefined) {
         return;
     } else if (arrFromDisplay.length > 4) {
-        operate(operationResult, arrFromDisplay[arrFromDisplay.length - 3], arrFromDisplay[arrFromDisplay.length - 2]);
+        operate(operationResult, 
+                arrFromDisplay[arrFromDisplay.length - 2],
+                arrFromDisplay[arrFromDisplay.length - 1]);
     } else {
         operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
     }
-}));
+};
+
+operatorButtons.forEach(button => button.addEventListener("click", clickOperatorButton));
 
 const clearAllButton = document.querySelector("button.clear");
 clearAllButton.addEventListener("click", () => {
@@ -126,17 +119,15 @@ document.addEventListener("keydown", (pressedKey) => {
     ];
 
     if (buttonValues.slice(-5, -1).includes(pressedKey.key)) {
-        // CURRENTLY WORKING HERE rewritten operatorButton function goes here
+        clickOperatorButton()
         displayClickedValue(pressedKey.key);
         decimalToggle = true;
+    } else if (pressedKey.key === "=") {
+        clickEqualsButton()
     } else if (pressedKey.key === "." && decimalToggle) {
         displayClickedValue(pressedKey.key);
         decimalToggle = false;
     } else if (buttonValues.slice(0, 10).includes(pressedKey.key)) {
         displayClickedValue(pressedKey.key)
     }
-    
-    // if pressedKey.key === "=" && equalsToggle is true, then switch it to false (might need a conditional like the one under the equalsButton section)
-    
-
 });
