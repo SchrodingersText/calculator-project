@@ -40,9 +40,9 @@ const operate = function (firstOperand, operator, secondOperand) {
         resultText.innerText = divide(firstOperand, secondOperand);
         break;
 
-    case "=":
-        resultText.innerText = firstOperand;
-        break;
+    // case "=":
+    //     resultText.innerText = firstOperand;   
+    //     break;
    }
 };
 
@@ -64,19 +64,35 @@ const displayClickedValue = function (value) {
 };
 
 const equalsButton = document.querySelector("button.equals");
-equalsButton.addEventListener("click", () => {
+// equalsButton.addEventListener("click", () => {
+//     let arrFromDisplay = displayText.innerText.split(" ");
+//     if (equalsToggle) {
+//         if (arrFromDisplay.length < 4) {
+//             operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
+//         } else {
+//         operate(resultText.innerText, 
+//                 arrFromDisplay[arrFromDisplay.length - 2], 
+//                 arrFromDisplay[arrFromDisplay.length - 1]);
+//         equalsToggle = false;
+//         }
+//     }
+// });
+
+const clickEqualsButton = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
     if (equalsToggle) {
-        if (arrFromDisplay.length < 4) {
+        if (arrFromDisplay.length <4) {
             operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
         } else {
-        operate(resultText.innerText, 
+            operate(resultText.innerText, 
                 arrFromDisplay[arrFromDisplay.length - 2], 
                 arrFromDisplay[arrFromDisplay.length - 1]);
-        equalsToggle = false;
+            equalsToggle = false;
         }
     }
-});
+};
+
+equalsButton.addEventListener("click", clickEqualsButton);
 
 const operatorButtons = document.querySelectorAll("button.operators");
 operatorButtons.forEach(button => button.addEventListener("click", () => {
@@ -102,3 +118,25 @@ clearAllButton.addEventListener("click", () => {
 
 const decimalButton = document.querySelector("button.decimal");
 decimalButton.addEventListener("click", () => decimalToggle = false);
+
+document.addEventListener("keydown", (pressedKey) => {
+    const buttonValues = [
+        "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+        ".", "+", "-", "x", "/", "="
+    ];
+
+    if (buttonValues.slice(-5, -1).includes(pressedKey.key)) {
+        // CURRENTLY WORKING HERE rewritten operatorButton function goes here
+        displayClickedValue(pressedKey.key);
+        decimalToggle = true;
+    } else if (pressedKey.key === "." && decimalToggle) {
+        displayClickedValue(pressedKey.key);
+        decimalToggle = false;
+    } else if (buttonValues.slice(0, 10).includes(pressedKey.key)) {
+        displayClickedValue(pressedKey.key)
+    }
+    
+    // if pressedKey.key === "=" && equalsToggle is true, then switch it to false (might need a conditional like the one under the equalsButton section)
+    
+
+});
