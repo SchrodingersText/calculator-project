@@ -117,13 +117,13 @@ document.addEventListener("keydown", (pressedKey) => {
         "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
         ".", "+", "-", "x", "/", "="
     ];
-
     if (buttonValues.slice(-5, -1).includes(pressedKey.key)) {
         clickOperatorButton()
         displayClickedValue(pressedKey.key);
         decimalToggle = true;
-    } else if (pressedKey.key === "=") {
+    } else if (pressedKey.key === "=" || pressedKey.key === "Enter") {
         clickEqualsButton()
+        console.log(pressedKey)
     } else if (pressedKey.key === "." && decimalToggle) {
         displayClickedValue(pressedKey.key);
         decimalToggle = false;
