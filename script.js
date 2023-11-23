@@ -102,12 +102,13 @@ const clickOperatorButton = function () {
 operatorButtons.forEach(button => button.addEventListener("click", clickOperatorButton));
 
 const clearAllButton = document.querySelector("button.clear");
-clearAllButton.addEventListener("click", () => {
+const clickClearAll = function () {
     displayText.innerText = "";
     resultText.innerText = "";
     equalsToggle = true;
     decimalToggle = true;
-});
+}
+clearAllButton.addEventListener("click", clickClearAll);
 
 const backspaceButton = document.querySelector("button.backspace");
 const clickBackspace = function () {
@@ -137,5 +138,7 @@ document.addEventListener("keydown", (pressedKey) => {
         equalsToggle = true; 
     } else if (pressedKey.key === "Backspace") {
         clickBackspace();
+    } else if (pressedKey.key === "q") {
+        clickClearAll()
     }
 });
