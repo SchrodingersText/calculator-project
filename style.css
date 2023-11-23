@@ -82,12 +82,15 @@ div.buttons {
     /*  removing ^ this doesn't seem to change anything Q: what's holding button layout in place?*/
 }
 
-button.clear, button.equals {
+button.clear, button.backspace, button.equals {
     background-image: url("images/buttonbg.jpg");
-    width: 10.1rem;
-    border-radius: 10px;   
+    border-radius: 10px;
     background-size: cover;
     background-repeat: no-repeat;
+}
+
+button.equals {
+    width: 10.1rem;
 }
 
 .footer {

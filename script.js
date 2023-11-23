@@ -39,10 +39,6 @@ const operate = function (firstOperand, operator, secondOperand) {
     case "/":
         resultText.innerText = divide(firstOperand, secondOperand);
         break;
-
-    // case "=":
-    //     resultText.innerText = firstOperand;   
-    //     break;
    }
 };
 
@@ -58,9 +54,13 @@ const displayClickedValue = function (value) {
         displayText.innerText += ` ${value} `;
     } else if (["+", "-", "x", "/"].includes(lastTextCharacter)) {
         displayText.innerText += ` ${value}`;
+        equalsToggle = true; 
     } else if (value === "." && !decimalToggle) {
         return;
-    } else displayText.innerText += value;
+    } else {
+        displayText.innerText += value;
+        equalsToggle = true;
+    }
 };
 
 const equalsButton = document.querySelector("button.equals");
@@ -109,6 +109,12 @@ clearAllButton.addEventListener("click", () => {
     decimalToggle = true;
 });
 
+const backspaceButton = document.querySelector("button.backspace");
+const clickBackspace = function () {
+    displayText.innerText = displayText.innerText.slice(0, -1);
+};
+backspaceButton.addEventListener("click", clickBackspace)
+
 const decimalButton = document.querySelector("button.decimal");
 decimalButton.addEventListener("click", () => decimalToggle = false);
 
@@ -123,11 +129,13 @@ document.addEventListener("keydown", (pressedKey) => {
         decimalToggle = true;
     } else if (pressedKey.key === "=" || pressedKey.key === "Enter") {
         clickEqualsButton()
-        console.log(pressedKey)
     } else if (pressedKey.key === "." && decimalToggle) {
         displayClickedValue(pressedKey.key);
         decimalToggle = false;
     } else if (buttonValues.slice(0, 10).includes(pressedKey.key)) {
-        displayClickedValue(pressedKey.key)
+        displayClickedValue(pressedKey.key);
+        equalsToggle = true; 
+    } else if (pressedKey.key === "Backspace") {
+        clickBackspace();
     }
 });
