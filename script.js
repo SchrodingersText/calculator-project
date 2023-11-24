@@ -43,11 +43,9 @@ const operate = function (firstOperand, operator, secondOperand) {
 };
 
 const displayableButtons = document.querySelectorAll("button.displayable");
-
 displayableButtons.forEach(button => button.addEventListener("click", () => {
     displayClickedValue(button.innerText);
 }));
-
 const displayClickedValue = function (value) {
     let lastTextCharacter = displayText.innerText.slice(-1); 
     if (["+", "-", "x", "/"].includes(value)) {
@@ -64,7 +62,6 @@ const displayClickedValue = function (value) {
 };
 
 const equalsButton = document.querySelector("button.equals");
-
 const clickEqualsButton = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
     if (equalsToggle) {
@@ -78,11 +75,9 @@ const clickEqualsButton = function () {
         }
     }
 };
-
 equalsButton.addEventListener("click", clickEqualsButton);
 
 const operatorButtons = document.querySelectorAll("button.operators");
-
 const clickOperatorButton = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
     let operationResult = resultText.innerText;
@@ -98,7 +93,6 @@ const clickOperatorButton = function () {
         operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
     }
 };
-
 operatorButtons.forEach(button => button.addEventListener("click", clickOperatorButton));
 
 const clearAllButton = document.querySelector("button.clear");
