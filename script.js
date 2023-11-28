@@ -53,6 +53,7 @@ const displayClickedValue = function (value) {
     } else if (["+", "-", "x", "/"].includes(lastTextCharacter)) {
         displayText.innerText += ` ${value}`;
         equalsToggle = true; 
+        isNegative = false; 
     } else if (value === "." && !decimalToggle) {
         return;
     } else {
@@ -87,8 +88,8 @@ const clickOperatorButton = function () {
         return;
     } else if (arrFromDisplay.length > 4) {
         operate(operationResult, 
-                arrFromDisplay[arrFromDisplay.length - 2],
-                arrFromDisplay[arrFromDisplay.length - 1]);
+                arrFromDisplay[arrFromDisplay.length - 3], 
+                arrFromDisplay[arrFromDisplay.length - 2]);
     } else {
         operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
     }
@@ -101,6 +102,7 @@ const clickClearAll = function () {
     resultText.innerText = "";
     equalsToggle = true;
     decimalToggle = true;
+    isNegative = false;
 }
 clearAllButton.addEventListener("click", clickClearAll);
 
@@ -112,6 +114,27 @@ backspaceButton.addEventListener("click", clickBackspace)
 
 const decimalButton = document.querySelector("button.decimal");
 decimalButton.addEventListener("click", () => decimalToggle = false);
+
+const signButton = document.querySelector("button.pos-neg");
+let isNegative = false;
+
+const clickSignButton = function () {
+    let arrFromDisplay = displayText.innerText.split(" ");
+    if (["+", "-", "x", "/"].includes(arrFromDisplay[arrFromDisplay.length - 1])) {
+        return;
+    } else if (!isNegative) {
+        isNegative = true;
+        arrFromDisplay[arrFromDisplay.length - 1] = `-${arrFromDisplay[arrFromDisplay.length - 1]}`;
+        displayText.innerText = arrFromDisplay.join(" ");
+    } else {
+        isNegative = false;
+        arrFromDisplay[arrFromDisplay.length - 1] = arrFromDisplay[arrFromDisplay.length - 1].slice(1);
+        displayText.innerText = arrFromDisplay.join(" ");
+    }
+}
+signButton.addEventListener("click", () => {
+    if (displayText.innerText.length > 0) clickSignButton()
+});
 
 document.addEventListener("keydown", (pressedKey) => {
     const buttonValues = [
@@ -134,5 +157,7 @@ document.addEventListener("keydown", (pressedKey) => {
         clickBackspace();
     } else if (pressedKey.key === "q") {
         clickClearAll()
+    } else if (pressedKey.key === "s" && displayText.innerText.length > 0) {
+        clickSignButton()
     }
 });
