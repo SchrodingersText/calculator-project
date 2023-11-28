@@ -81,17 +81,23 @@ equalsButton.addEventListener("click", clickEqualsButton);
 const operatorButtons = document.querySelectorAll("button.operators");
 const clickOperatorButton = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
+    let displayLength = arrFromDisplay.length
     let operationResult = resultText.innerText;
     decimalToggle = true;
+  
     
     if (arrFromDisplay[2] === undefined) {
+        return;
+    } else if (!equalsToggle) {
         return;
     } else if (arrFromDisplay.length > 4) {
         operate(operationResult, 
                 arrFromDisplay[arrFromDisplay.length - 3], 
                 arrFromDisplay[arrFromDisplay.length - 2]);
     } else {
-        operate(arrFromDisplay[0], arrFromDisplay[1], arrFromDisplay[2]);
+        operate(arrFromDisplay[displayLength - 4], 
+                arrFromDisplay[displayLength - 3], 
+                arrFromDisplay[displayLength - 2]);
     }
 };
 operatorButtons.forEach(button => button.addEventListener("click", clickOperatorButton));
