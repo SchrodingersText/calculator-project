@@ -114,7 +114,18 @@ clearAllButton.addEventListener("click", clickClearAll);
 
 const backspaceButton = document.querySelector("button.backspace");
 const clickBackspace = function () {
-    displayText.innerText = displayText.innerText.slice(0, -1);
+    let arrFromDisplay = displayText.innerText.split(" ");
+    let lastString = arrFromDisplay[arrFromDisplay.length - 1];
+    if (lastString.includes("-")) {
+        arrFromDisplay.pop()
+        displayText.innerText = arrFromDisplay.join(" ")
+        decimalToggle = true;
+    } else if (lastString.includes(".")) {
+        decimalToggle = true;
+        displayText.innerText = displayText.innerText.slice(0, -1);
+    } else {
+        displayText.innerText = displayText.innerText.slice(0, -1);
+    }
 };
 backspaceButton.addEventListener("click", clickBackspace)
 
