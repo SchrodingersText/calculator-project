@@ -116,6 +116,7 @@ const backspaceButton = document.querySelector("button.backspace");
 const clickBackspace = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
     let lastString = arrFromDisplay[arrFromDisplay.length - 1];
+    
     if (lastString.includes("-")) {
         arrFromDisplay.pop()
         displayText.innerText = arrFromDisplay.join(" ")
