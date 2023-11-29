@@ -84,7 +84,6 @@ const clickOperatorButton = function () {
     let displayLength = arrFromDisplay.length
     let operationResult = resultText.innerText;
     decimalToggle = true;
-  
     
     if (arrFromDisplay[2] === undefined) {
         return;
@@ -160,8 +159,8 @@ document.addEventListener("keydown", (pressedKey) => {
         ".", "+", "-", "x", "/", "="
     ];
     if (buttonValues.slice(-5, -1).includes(pressedKey.key)) {
-        clickOperatorButton()
         displayClickedValue(pressedKey.key);
+        clickOperatorButton()
         decimalToggle = true;
     } else if (pressedKey.key === "=" || pressedKey.key === "Enter") {
         clickEqualsButton()
