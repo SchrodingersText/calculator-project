@@ -3,5 +3,7 @@
 keymap:
 
 CA: q (lowercase)
-<-: backspace
+
+<-- : backspace
+
 +/-: s (lowercase)
