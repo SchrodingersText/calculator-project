@@ -3,6 +3,8 @@ const resultText = document.querySelector("p.result-text");
 
 let equalsToggle = true;
 let decimalToggle = true;
+let operatorToggle = false;
+let isNegative = false;
 
 const add = function (num1, num2) {
     return Math.round(((+num1 + +num2) + Number.EPSILON) * 1000) / 1000;
@@ -46,19 +48,34 @@ const displayableButtons = document.querySelectorAll("button.displayable");
 displayableButtons.forEach(button => button.addEventListener("click", () => {
     displayClickedValue(button.innerText);
 }));
+
 const displayClickedValue = function (value) {
     let lastTextCharacter = displayText.innerText.slice(-1); 
     if (["+", "-", "x", "/"].includes(value)) {
-        displayText.innerText += ` ${value} `;
+        if (operatorToggle) {
+            displayText.innerText += ` ${value} `;
+        } else return;
     } else if (["+", "-", "x", "/"].includes(lastTextCharacter)) {
-        displayText.innerText += ` ${value}`;
-        equalsToggle = true; 
-        isNegative = false; 
+        if (typeof (value * 1) === "number" && value !== ".") {
+            displayText.innerText += ` ${value}`;
+            equalsToggle = true; 
+            isNegative = false;
+            operatorToggle = true;
+        } else {      
+            displayText.innerText += ` ${value}`;
+            equalsToggle = true; 
+            isNegative = false;
+        }
     } else if (value === "." && !decimalToggle) {
         return;
     } else {
-        displayText.innerText += value;
-        equalsToggle = true;
+        if (value === ".") {
+            displayText.innerText += value;
+        } else if (typeof (value * 1) === "number") {
+            displayText.innerText += value;
+            equalsToggle = true;  
+            operatorToggle = true;
+        }
     }
 };
 
@@ -83,13 +100,14 @@ const clickOperatorButton = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
     let displayLength = arrFromDisplay.length
     let operationResult = resultText.innerText;
+    operatorToggle = false;  
     decimalToggle = true;
     
     if (arrFromDisplay[2] === undefined) {
         return;
     } else if (!equalsToggle) {
         return;
-    } else if (arrFromDisplay.length > 4) {
+    } else if (arrFromDisplay.length > 4 && operatorToggle) {
         operate(operationResult, 
                 arrFromDisplay[arrFromDisplay.length - 3], 
                 arrFromDisplay[arrFromDisplay.length - 2]);
@@ -107,6 +125,7 @@ const clickClearAll = function () {
     resultText.innerText = "";
     equalsToggle = true;
     decimalToggle = true;
+    operatorToggle = false;
     isNegative = false;
 }
 clearAllButton.addEventListener("click", clickClearAll);
@@ -115,25 +134,24 @@ const backspaceButton = document.querySelector("button.backspace");
 const clickBackspace = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
     let lastString = arrFromDisplay[arrFromDisplay.length - 1];
-    
     if (lastString.includes("-")) {
         arrFromDisplay.pop()
         displayText.innerText = arrFromDisplay.join(" ")
         decimalToggle = true;
     } else if (lastString.includes(".")) {
-        decimalToggle = true;
+        decimalToggle = true;            //trying to test what this does
         displayText.innerText = displayText.innerText.slice(0, -1);
     } else {
         displayText.innerText = displayText.innerText.slice(0, -1);
     }
 };
+
 backspaceButton.addEventListener("click", clickBackspace)
 
 const decimalButton = document.querySelector("button.decimal");
 decimalButton.addEventListener("click", () => decimalToggle = false);
 
 const signButton = document.querySelector("button.pos-neg");
-let isNegative = false;
 
 const clickSignButton = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
