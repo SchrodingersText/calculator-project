@@ -5,6 +5,7 @@ let equalsToggle = true;
 let decimalToggle = true;
 let operatorToggle = false;
 let isNegative = false;
+let allowOperation = true;
 
 const add = function (num1, num2) {
     return Math.round(((+num1 + +num2) + Number.EPSILON) * 1000) / 1000;
@@ -61,6 +62,7 @@ const displayClickedValue = function (value) {
             equalsToggle = true; 
             isNegative = false;
             operatorToggle = true;
+            allowOperation = true;   //here?
         } else {      
             displayText.innerText += ` ${value}`;
             equalsToggle = true; 
@@ -69,14 +71,17 @@ const displayClickedValue = function (value) {
     } else if (value === "." && !decimalToggle) {
         return;
     } else {
+        allowOperation = true;
         if (value === ".") {
             displayText.innerText += value;
         } else if (typeof (value * 1) === "number") {
             displayText.innerText += value;
             equalsToggle = true;  
             operatorToggle = true;
+            allowOperation = true;  //and here?
         }
     }
+    //allowOperation = true;  this causes the repeat operation when placed here. Is there a better placement?
 };
 
 const equalsButton = document.querySelector("button.equals");
@@ -96,26 +101,48 @@ const clickEqualsButton = function () {
 equalsButton.addEventListener("click", clickEqualsButton);
 
 const operatorButtons = document.querySelectorAll("button.operators");
+// const clickOperatorButton = function () {
+//     let arrFromDisplay = displayText.innerText.split(" ");
+//     let displayLength = arrFromDisplay.length
+//     let operationResult = resultText.innerText;
+//     operatorToggle = false;  
+//     decimalToggle = true;
+    
+//     if (arrFromDisplay[2] === undefined) {
+//         return;
+//     } else if (!equalsToggle) {
+//         return;
+//     } else if (arrFromDisplay.length > 4 /*&& operatorToggle*/) {     //there's an issue here - the operatorToggle is causing this conditional to be passed over, and the next conditional performs an incorrect calculation
+//         operate(operationResult, 
+//                 arrFromDisplay[arrFromDisplay.length - 3], 
+//                 arrFromDisplay[arrFromDisplay.length - 2]);
+//     } else {
+//         operate(arrFromDisplay[displayLength - 4], 
+//                 arrFromDisplay[displayLength - 3], 
+//                 arrFromDisplay[displayLength - 2]);
+//     }
+// };
 const clickOperatorButton = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
     let displayLength = arrFromDisplay.length
     let operationResult = resultText.innerText;
-    operatorToggle = false;  
+    operatorToggle = false;
     decimalToggle = true;
     
     if (arrFromDisplay[2] === undefined) {
         return;
     } else if (!equalsToggle) {
         return;
-    } else if (arrFromDisplay.length > 4 && operatorToggle) {
+    } else if (arrFromDisplay.length > 4 && allowOperation) {     //there's an issue here - the operation repeats if you click an operator again
         operate(operationResult, 
                 arrFromDisplay[arrFromDisplay.length - 3], 
                 arrFromDisplay[arrFromDisplay.length - 2]);
-    } else {
+    } else if (allowOperation) {
         operate(arrFromDisplay[displayLength - 4], 
                 arrFromDisplay[displayLength - 3], 
                 arrFromDisplay[displayLength - 2]);
     }
+    allowOperation = false;
 };
 operatorButtons.forEach(button => button.addEventListener("click", clickOperatorButton));
 
@@ -131,6 +158,20 @@ const clickClearAll = function () {
 clearAllButton.addEventListener("click", clickClearAll);
 
 const backspaceButton = document.querySelector("button.backspace");
+// const clickBackspace = function () {
+//     let arrFromDisplay = displayText.innerText.split(" ");
+//     let lastString = arrFromDisplay[arrFromDisplay.length - 1];
+//     if (lastString.includes("-")) {
+//         arrFromDisplay.pop()
+//         displayText.innerText = arrFromDisplay.join(" ")
+//         decimalToggle = true;
+//     } else if (lastString.includes(".")) {
+//         decimalToggle = true;          
+//         displayText.innerText = displayText.innerText.slice(0, -1);
+//     } else {
+//         displayText.innerText = displayText.innerText.slice(0, -1);
+//     }
+// };
 const clickBackspace = function () {
     let arrFromDisplay = displayText.innerText.split(" ");
     let lastString = arrFromDisplay[arrFromDisplay.length - 1];
@@ -139,8 +180,18 @@ const clickBackspace = function () {
         displayText.innerText = arrFromDisplay.join(" ")
         decimalToggle = true;
     } else if (lastString.includes(".")) {
-        decimalToggle = true;            //trying to test what this does
+        let lastTextCharacter = displayText.innerText.slice(-1);
+        if (lastTextCharacter === ".") {
+            decimalToggle = true;
+            displayText.innerText = displayText.innerText.slice(0, -1);
+        } else {          
         displayText.innerText = displayText.innerText.slice(0, -1);
+        operatorToggle = false;
+        }
+    } else if (["+", "-", "x", "/"].includes(lastString)) {
+        displayText.innerText = displayText.innerText.slice(0, -1);
+        operatorToggle = true;
+        allowOperation = false;
     } else {
         displayText.innerText = displayText.innerText.slice(0, -1);
     }
