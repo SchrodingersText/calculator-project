@@ -20,9 +20,11 @@ const multiply = function (num1, num2) {
 };
 
 const divide = function (num1, num2) {
-    if (num1 > 0 && num2 > 0) {
+    if (num1 === "0" || num2 === "0") {
+        return "whomp whomp";
+    } else { 
         return Math.round(((num1 / num2) + Number.EPSILON) * 1000) /1000;
-    } else return "lmao";
+    }
 };
 
 const operate = function (firstOperand, operator, secondOperand) {
@@ -105,7 +107,6 @@ const clickOperatorButton = function () {
     let displayLength = arrFromDisplay.length
     let operationResult = resultText.innerText;
     operatorToggle = false;
-    decimalToggle = true;
     
     if (arrFromDisplay[2] === undefined) {
         return;
@@ -115,10 +116,12 @@ const clickOperatorButton = function () {
         operate(operationResult, 
                 arrFromDisplay[arrFromDisplay.length - 3], 
                 arrFromDisplay[arrFromDisplay.length - 2]);
+                decimalToggle = true
     } else if (allowOperation) {
         operate(arrFromDisplay[displayLength - 4], 
                 arrFromDisplay[displayLength - 3], 
                 arrFromDisplay[displayLength - 2]);
+                decimalToggle = true
     }
     allowOperation = false;
 };
